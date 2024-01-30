@@ -1,0 +1,41 @@
+import requests
+
+
+class CryptocurrencyAPI:
+
+    def __init__(self):
+        self.api_key = api_key
+        self.base_url = base_url
+
+    def balance(self, token): 
+        token = token if token != 'ETH' else ''
+        url = f'{self.base_url}balance?key={self.api_key}&token={token}'
+        res = requests.get(url)
+        return res.json()['result']
+
+
+    def give(self, user_id):
+        url = f'{self.base_url}give?key={self.api_key}&uniqID={user_id}&label={user_id}&waitPeriod=43200'
+        res = requests.get(url)
+        address = res.json()['result']['address']
+        return address
+
+
+    def track(self, token, address, amount, tag):
+        url = f'{self.base_url}track?key={self.api_key}&token={token}&address={address}&tag={tag}&amount={amount}'
+        res = requests.get(url)
+        return res.json()
+
+
+    def send(self, address, token, amount, tag):
+        token = token if token != 'BNB' else ''
+        url = f'{self.base_url}send?key={self.api_key}&address={address}&tag={tag}&amount={amount}&token={token}'
+        res = requests.get(url)
+        return res.json()
+
+
+    def status(self, request_id):
+        url = f'{self.base_url}status?key={self.api_key}&id={request_id}'
+        res = requests.get(url)
+        return res.json()
+
